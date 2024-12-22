@@ -1,0 +1,111 @@
+/* Основний контейнер */
+.bookContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  background-color: #f0f4f8;
+  height: 86.4vh; /* Забезпечує, що контейнер займає всю висоту екрану */
+  box-sizing: border-box;
+  overflow: hidden; /* Забороняє прокручування */
+}
+
+/* Текстова частина */
+.content {
+  max-width: 50%;
+  margin-right: 20px; /* Відступ для розділення зображень */
+}
+
+h1 {
+  font-size: 3rem;
+  color: #333;
+  margin: 0;
+}
+
+.highlight {
+  color: #ff6347;
+}
+
+p {
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 15px;
+  line-height: 1.6;
+}
+
+/* Кнопки */
+.buttons {
+  margin-top: 30px;
+}
+
+.searchButton {
+  background: linear-gradient(90deg, #ff7a18, #ff6347); /* Градієнтний фон */
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  font-size: 1.3rem;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50px; /* Зробити краї закругленими */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Легка тінь */
+  transition: all 0.3s ease; /* Анімація при взаємодії */
+}
+
+.searchButton:hover {
+  background: linear-gradient(
+    90deg,
+    #ff9a42,
+    #ff7a18
+  ); /* Світліший градієнт при наведенні */
+  transform: translateY(-3px); /* Підняття кнопки */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Інтенсивніша тінь */
+}
+
+.searchButton:active {
+  transform: translateY(0); /* Повертає в початкову позицію */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Зменшення тіні */
+}
+
+/* Блок зображень */
+.images {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  max-width: 40%; /* Оскільки зображення займають менше місця */
+}
+
+.image {
+  position: relative;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.image:first-child {
+  width: 220px; /* Масштаб першого зображення */
+  height: auto;
+  z-index: 2;
+  transform: scale(0.9);
+}
+
+.image:nth-child(2) {
+  width: 280px; /* Масштаб другого зображення */
+  height: auto;
+  z-index: 1;
+}
+
+/* Декоративне коло */
+.decorativeShapes {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background-color: #ff6347;
+  border-radius: 50%;
+  z-index: 0;
+  top: -50px;
+  left: -50px;
+  opacity: 0.5;
+}

@@ -1,0 +1,122 @@
+/* Загальний стиль для хедера */
+.header {
+  width: 100%;
+  height: 100px; /* Оптимізована висота */
+  background: linear-gradient(135deg, #4a90e2, #50e3c2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Контейнер для логотипу і заголовків */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.imgLogo {
+  width: 80px;
+  height: 60px;
+  cursor: pointer;
+}
+
+.siteName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.navText {
+  font-size: 22px;
+  font-weight: bold;
+  color: #f8f8f8;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #d1f4f4;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Контейнер для кнопок навігації */
+.navItems {
+  display: flex;
+  gap: 15px;
+}
+
+.navBtn {
+  background: transparent;
+  border: 2px solid #ffffff;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navBtn:hover {
+  background-color: #ffffff;
+  color: #4a90e2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Контейнер для дій користувача */
+.userActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatarContainer {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.avatarContainer:hover {
+  transform: scale(1.1);
+}
+
+.profileAvatar {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.authBtns {
+  display: flex;
+  gap: 10px;
+}
+
+.regBtn {
+  background-color: #50e3c2;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.regBtn:hover {
+  background-color: #3fc2a8;
+  transform: translateY(-2px);
+}
+
+/* Приховування хедера на певних сторінках */
+.hidden {
+  display: none;
+}

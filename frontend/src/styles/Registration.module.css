@@ -1,0 +1,129 @@
+/* Styles for the registration form */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 100%;
+}
+
+.h1 {
+  font-size: 1.5rem; /* Зменшити розмір шрифту */
+  white-space: nowrap; /* Заборонити перенесення тексту */
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.button {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-bottom: 1rem;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.button:active {
+  background-color: #003f88;
+}
+
+.button:disabled {
+  background-color: #ced4da;
+  color: #6c757d;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  width: 100%;
+}
+
+.hintError {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  width: 100%;
+}
+
+.label {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  color: #495057;
+}
+
+.label > .input {
+  margin-top: 0.25rem;
+}
+
+.signIn {
+  font-size: 0.9rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+.signIn a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+.signIn a:hover {
+  text-decoration: underline;
+}

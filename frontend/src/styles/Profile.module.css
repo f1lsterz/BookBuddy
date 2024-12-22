@@ -1,0 +1,403 @@
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  background: linear-gradient(to bottom, #0077ff, #f4f6f8);
+  min-height: 100vh;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profileImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 6px solid #0077ff;
+  object-fit: cover;
+  margin-right: 35px; /* Space between avatar and info */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profileImage:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.profileInfo h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.profileInfo p {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #555;
+}
+
+.clubInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.clubLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.clubInfo span {
+  font-size: 18px;
+  color: #0077ff;
+  font-weight: bold;
+}
+
+.clubLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+.clubLink:hover {
+  opacity: 0.7;
+}
+
+/* Profile Details Section */
+.profileDetails {
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin-top: 40px;
+}
+
+.profileDetails p {
+  margin: 18px 0;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Favorite Genres Section */
+.favoriteGenres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.genreTag {
+  padding: 10px 18px;
+  background: #e6f7ff;
+  border-radius: 25px;
+  font-size: 16px;
+  color: #0077ff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.genreTag:hover {
+  background: #0077ff;
+  color: white;
+}
+
+/* Top 3 Books Section */
+.topBooks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  gap: 25px;
+}
+
+.bookCard {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  padding: 25px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bookCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.bookCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.bookCard h3 {
+  font-size: 20px;
+  margin: 15px 0;
+  color: #333;
+}
+
+.bookCard p {
+  font-size: 15px;
+  color: #777;
+}
+
+/* Edit Profile Form */
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.inputField {
+  padding: 12px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.inputField[name="name"] {
+  margin-top: 20px;
+}
+
+.libraryButton {
+  background-color: #0077ff; /* Основний колір фону */
+  color: white; /* Колір тексту */
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px; /* Заокруглені кути */
+  padding: 12px 25px; /* Внутрішні відступи */
+  cursor: pointer; /* Змінює курсор на pointer */
+  transition: all 0.3s ease; /* Плавний перехід для всіх властивостей */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легке тіньове відображення */
+}
+
+.libraryButton:hover {
+  background-color: #005fcc; /* Колір фону при наведенні */
+  transform: scale(1.05); /* Збільшення кнопки при наведенні */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Збільшена тінь при наведенні */
+}
+
+.libraryButton:active {
+  background-color: #004bb5; /* Колір при натисканні */
+  transform: scale(1); /* Скидання масштабу після натискання */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Відновлення тіні */
+}
+
+.libraryButton:focus {
+  outline: none; /* Видалення стандартного обведення при фокусі */
+  box-shadow: 0 0 0 3px rgba(0, 119, 255, 0.5); /* Тінь для фокусу */
+}
+
+.saveButton,
+.cancelButton {
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.saveButton:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.cancelButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Image Preview */
+.imagePreview {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.profileImagePreview {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+
+/* Buttons Container */
+.buttonsContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.editButton {
+  padding: 12px 25px;
+  font-size: 16px;
+  background: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.editButton:hover {
+  background: #005fcc;
+  transform: translateY(-3px);
+}
+
+.logoutButton {
+  padding: 12px 25px;
+  font-size: 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #c82333;
+  transform: translateY(-3px);
+}
+
+/* Friends Panel */
+.friendsPanel {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-top: 40px;
+}
+
+.friendsPanel h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #0077ff;
+  padding-bottom: 5px;
+}
+
+.friendsPanel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friendsPanel ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.friendsPanel ul li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.friendsPanel ul li img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 2px solid #0077ff;
+}
+
+.friendsPanel ul li span {
+  font-size: 1rem;
+  color: #333;
+  flex-grow: 1;
+}
+
+.friendsPanel ul li button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.friendsPanel ul li button:first-of-type {
+  background-color: #28a745;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.friendsPanel ul li button:first-of-type:hover {
+  background-color: #218838;
+}
+
+.friendsPanel ul li button:last-of-type {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.friendsPanel ul li button:last-of-type:hover {
+  background-color: #c82333;
+}
+
+.friendsPanel ul li:hover button {
+  transform: translateY(-2px);
+}
+
+.friendsPanel ul li:hover img {
+  border-color: #0056b3;
+}
+
+.friendsPanel ul li:hover span {
+  color: #0077ff;
+}

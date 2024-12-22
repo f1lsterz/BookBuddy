@@ -1,0 +1,260 @@
+/* =========================== Club Component Styles =========================== */
+
+/* Main container for the entire page */
+.bookClubsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Wrapper for club details */
+.clubDetailsWrapper {
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button to leave the club */
+.leaveClubButton {
+  padding: 10px 20px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.leaveClubButton:hover {
+  background-color: #d32f2f;
+}
+
+/* Button to join the club */
+.joinClubButton {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.joinClubButton:hover {
+  background-color: #388e3c;
+}
+
+/* =========================== ClubChat Component Styles =========================== */
+
+/* Chat container */
+.chatContainer {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.chatMessage {
+  margin-bottom: 10px;
+  padding: 5px 0;
+}
+
+.chatSender {
+  font-weight: bold;
+  color: #333;
+}
+
+.chatInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.chatSendButton {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.chatSendButton:hover {
+  background-color: #388e3c;
+}
+
+/* =========================== ClubDetails Component Styles =========================== */
+
+/* Club header styling */
+.clubDetailsHeader {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+/* Club description */
+.clubDescription {
+  font-size: 18px;
+  color: #777;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.clubImage {
+  width: 80%; /* Зменшуємо ширину до 80% */
+  max-width: 500px; /* Обмежуємо максимальну ширину */
+  height: auto; /* Зберігаємо пропорції зображення */
+  object-fit: cover; /* Встановлюємо збереження співвідношення сторін при обрізанні */
+  border-radius: 15px; /* Більш округлі краї */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Додаємо тінь для стилю */
+  margin: 0 auto 20px; /* Центруємо зображення та додаємо відступ знизу */
+  display: block; /* Забезпечуємо блочний елемент */
+}
+
+/* List of members */
+.memberList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.memberListItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+.memberListItem:hover {
+  background-color: #f5f5f5;
+}
+
+.memberAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.memberName {
+  font-size: 16px;
+  color: #333;
+}
+
+.memberRole {
+  font-size: 14px;
+  color: #999;
+}
+
+/* Remove member button styling */
+.removeMemberButton {
+  padding: 5px 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.removeMemberButton:hover {
+  background-color: #d32f2f;
+}
+
+.removeMemberButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Member modal styling */
+.memberModalWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.memberModalAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.memberModalName {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.memberModalActions {
+  display: flex;
+  gap: 10px;
+}
+
+/* =========================== EditClub Component Styles =========================== */
+
+/* Edit club container */
+.editClubContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.editInput {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.editTextarea {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.editButton {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.editButton:hover {
+  background-color: #388e3c;
+}
+
+.cancelButton {
+  padding: 10px 15px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cancelButton:hover {
+  background-color: #d32f2f;
+}

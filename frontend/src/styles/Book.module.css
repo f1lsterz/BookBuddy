@@ -1,0 +1,580 @@
+/* Стилі для контейнера з деталями книги */
+.bookDetailsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 40px;
+  gap: 30px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Стилі для зображення книги */
+.bookImage {
+  width: 300px; /* Збільшена ширина для більшого зображення */
+  height: 450px;
+  object-fit: cover; /* Забезпечує правильне масштабування зображення */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out; /* Додаємо ефект при наведенні */
+}
+
+.bookImage:hover {
+  transform: scale(1.05); /* Збільшує зображення при наведенні */
+}
+
+/* Стилі для інформації про книгу */
+.bookInfo {
+  flex: 1;
+  text-align: left;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Заголовок книги */
+.bookInfo h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  word-wrap: break-word;
+}
+
+/* Автор книги */
+.bookInfo h2 {
+  font-size: 1.5rem;
+  color: #7f8c8d;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+/* Стилі для списку жанрів */
+.bookInfo p {
+  font-size: 1.1rem;
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+.bookInfo p strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Стилі для опису книги */
+.bookInfo p:last-child {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin-bottom: 0;
+}
+
+/* Для елементів у випадку, якщо значення відсутнє */
+.bookInfo p span {
+  font-style: italic;
+  color: #95a5a6;
+}
+
+/* Стилі для компоненту PageContent */
+.pageContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  height: 100%;
+}
+
+.pageText {
+  width: 100%;
+  max-width: 800px;
+  min-height: 800px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid #d7b39e;
+  font-family: "Georgia", serif;
+  font-size: 18px;
+  color: #3e3e3e;
+  line-height: 1.6;
+  text-align: justify;
+  position: relative;
+  background-image: linear-gradient(to bottom, #f4f1ec, #fff);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pageText:hover {
+  transform: scale(1.02);
+}
+
+.pageText:before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background-color: #e3d1b0;
+  border-radius: 10px;
+  z-index: -1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pageText::after {
+  content: "The Book Page";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-style: italic;
+  color: #a2836e;
+  letter-spacing: 1px;
+}
+
+.pageText p {
+  margin: 0;
+  padding: 0;
+  white-space: pre-line;
+}
+
+.pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.page {
+  padding: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.page:hover {
+  background-color: #f1e2d7;
+}
+
+/* Стилі для пагінації */
+.pageButton {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pageButton:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.pageButton.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Стилі для компоненту Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.pageButton {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pageButton.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.pageButton.disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.pageButton:hover:not(.disabled) {
+  background-color: #007bff;
+  color: white;
+}
+
+.arrowButton {
+  font-size: 20px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* Стилі для компоненту BookRating */
+.bookTextContainer {
+  margin-top: 30px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.pageTextBox {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  margin-top: 10px;
+}
+
+.pageText {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  resize: none;
+}
+
+.pageContent {
+  margin-top: 20px;
+}
+
+/* Стилі для компоненту Comments */
+.commentsSection {
+  margin-top: 20px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.commentsList {
+  margin-bottom: 20px;
+}
+
+.comment {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.comment:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.commentUserImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.commentHeader strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.comment p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.commentActions {
+  display: flex;
+  gap: 15px;
+  font-size: 14px;
+  color: #007bff;
+}
+
+.commentActions button {
+  background-color: #f9f9f9;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.commentActions button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.addComment {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.addComment textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  resize: none;
+  background-color: #f9f9f9;
+}
+
+.addComment button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.addComment button:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.deleteButton:hover {
+  background-color: #a71d2a;
+}
+
+.commentActions button:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #a71d2a;
+}
+
+/* Стилі для компоненти ManageBookToLibrary */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.multiSelectContainer {
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.multiSelect {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #fafafa;
+  transition: background-color 0.3s ease;
+}
+
+.multiSelect:hover {
+  background-color: #f0f0f0;
+}
+
+.optionLabel {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.optionLabel:hover {
+  color: #007bff;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  transition: transform 0.2s ease;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #007bff;
+}
+
+.saveButton {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.saveButton:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.saveButton:active {
+  transform: scale(0.98);
+}
+
+.instructions {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+}
+
+.ratingAndLibraryContainer {
+  display: flex;
+  justify-content: center; /* Центрує компоненти по горизонталі */
+  align-items: center; /* Центрує компоненти по вертикалі */
+  gap: 40px; /* Збільшуємо відстань між компонентами для більшої естетики */
+  margin-bottom: 30px; /* Збільшуємо відстань між рейтингом і бібліотеками */
+  padding: 20px; /* Додаємо внутрішні відступи для кращого вигляду */
+  flex-wrap: wrap; /* Дозволяє компонентам переходити на новий рядок, якщо місця недостатньо */
+  max-width: 1200px; /* Обмежує максимальну ширину для гарного вигляду на великих екранах */
+  margin-left: auto; /* Центрує контейнер по горизонталі */
+  margin-right: auto; /* Центрує контейнер по горизонталі */
+}
+
+.ratingAndLibraryContainer > * {
+  flex: 1 1 300px; /* Задає мінімальну ширину для кожного компонента */
+  text-align: center; /* Центрує контент всередині компонента */
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ratingHeader {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.averageRatingContainer {
+  text-align: center;
+}
+
+.averageRatingHeader {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.userRatingContainer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.userRatingHeader {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.deleteRatingBtn {
+  margin-top: 10px;
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.deleteRatingBtn:hover {
+  background-color: #a71d2a;
+}
+
+.errorText {
+  color: #dc3545;
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+}
