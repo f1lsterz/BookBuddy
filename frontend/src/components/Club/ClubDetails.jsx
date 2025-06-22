@@ -25,7 +25,7 @@ const ClubDetails = ({ club, members, adminId }) => {
   const token = localStorage.getItem("token");
   const userId = token ? jwtDecode(token).id : null;
 
-  const isAdmin = userId === adminId;
+  const isAdmin = userId == adminId;
   const isClubMember = clubMembers.some((member) => member.userId === userId);
 
   useEffect(() => {

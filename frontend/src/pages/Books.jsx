@@ -57,8 +57,8 @@ const Books = () => {
   };
 
   useEffect(() => {
-    loadBooks(currentPage);
-  }, [currentPage]);
+    loadBooks(currentPage, sortBy, order, searchQuery);
+  }, [currentPage, sortBy, order, searchQuery]);
 
   useEffect(() => {
     loadRecommendedBooks();
@@ -105,9 +105,9 @@ const Books = () => {
           placeholder="Search by title"
           className={styles.searchInput}
         />
-        <button onClick={handleSearch} className={styles.searchButton}>
+        {/*  <button onClick={handleSearch} className={styles.searchButton}>
           Search
-        </button>
+        </button> */}
         <button onClick={handleResetSearch} className={styles.resetButton}>
           Reset
         </button>

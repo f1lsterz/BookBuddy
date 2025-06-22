@@ -3,10 +3,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import sequelize from "./src/config/db.js";
-import router from "./src/router/routers.js";
-import errorMiddleware from "./src/middlewares/error.js";
-import bookService from "./src/service/book_service.js";
+import sequelize from "./config/db.js";
+import router from "./router/routers.js";
+import errorMiddleware from "./middlewares/errorMiddleware.js";
+import bookService from "./service/bookService.js";
 
 dotenv.config();
 

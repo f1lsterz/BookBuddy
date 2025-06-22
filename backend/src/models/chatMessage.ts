@@ -19,25 +19,4 @@ const ChatMessage = sequelize.define(
   }
 );
 
-ChatMessage.belongsTo(BookClub, {
-  foreignKey: "clubId",
-  as: "club",
-});
-
-ChatMessage.belongsTo(User, {
-  foreignKey: "userId",
-  as: "sender",
-});
-
-BookClub.hasMany(ChatMessage, {
-  foreignKey: "clubId",
-  as: "messages",
-  onDelete: "CASCADE",
-});
-
-User.hasMany(ChatMessage, {
-  foreignKey: "userId",
-  as: "sentMessages",
-});
-
 export default ChatMessage;

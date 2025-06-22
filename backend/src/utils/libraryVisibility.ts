@@ -1,0 +1,5 @@
+export enum LIBRARY_VISIBILITY {
+  PRIVATE = "PRIVATE",
+  PUBLIC = "PUBLIC",
+  FRIENDS = "FRIENDS",
+}
