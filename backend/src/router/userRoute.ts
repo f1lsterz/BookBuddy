@@ -4,9 +4,6 @@ import upload from "../config/multerConfig.js";
 
 const router = Router();
 
-router.post("/registration", userController.registration);
-router.post("/login", userController.login);
-router.get("/profile/:id", userController.getUserProfile);
 router.get("/profile/:id/club", userController.getUserClub);
 router.put(
   "/profile/:id",

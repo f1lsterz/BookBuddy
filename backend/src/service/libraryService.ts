@@ -1,6 +1,6 @@
 import Library from "../models/library.js";
 import Book from "../models/book.js";
-import ApiError from "../exceptions/api-error.js";
+import { ApiError } from "../utils/apiError.js";
 
 class LibraryService {
   async getLibrary(userId) {

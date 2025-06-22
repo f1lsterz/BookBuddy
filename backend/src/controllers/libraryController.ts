@@ -1,7 +1,10 @@
-import libraryService from "../service/library_service.js";
+import type { Request, Response, NextFunction } from "express";
+import type { AuthenticatedRequest } from "../utils/types/types.js";
+import libraryService from "../service/libraryService.js";
+import { ApiError } from "../utils/apiError.js";
 
 class LibraryController {
-  async getLibrary(req, res, next) {
+  async getLibrary(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req.params;
       const library = await libraryService.getLibrary(userId);
@@ -11,12 +14,23 @@ class LibraryController {
     }
   }
 
-  async createCustomList(req, res, next) {
+  async createCustomLibrary(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
-      const { userId, customListName, visibility } = req.body;
-      const newList = await libraryService.createCustomList(
+      const { customLibraryName, visibility } = req.body;
+
+      const userId = req.user?.id;
+
+      if (!userId) {
+        throw ApiError.Unauthorized("User ID is missing in token");
+      }
+
+      const newList = await libraryService.createCustomLibrary(
         userId,
-        customListName,
+        customLibraryName,
         visibility
       );
       return res.json(newList);
@@ -25,28 +39,52 @@ class LibraryController {
     }
   }
 
-  async deleteCustomList(req, res, next) {
+  async deleteCustomLibrary(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
-      const { userId, libraryId } = req.params;
-      const response = await libraryService.deleteCustomList(userId, libraryId);
+      const { libraryId } = req.params;
+
+      const userId = req.user?.id;
+
+      if (!userId) {
+        throw ApiError.Unauthorized("User ID is missing in token");
+      }
+
+      const response = await libraryService.deleteCustomLibrary(
+        userId,
+        libraryId
+      );
       return res.json(response);
     } catch (error) {
       next(error);
     }
   }
 
-  async getBooksInList(req, res, next) {
+  async getBooksInLibrary(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
-      const { userId, libraryId } = req.params;
+      const { libraryId } = req.params;
 
-      const books = await libraryService.getBooksInList(userId, libraryId);
+      const userId = req.user?.id;
+
+      if (!userId) {
+        throw ApiError.Unauthorized("User ID is missing in token");
+      }
+
+      const books = await libraryService.getBooksInLibrary(userId, libraryId);
       return res.json(books || []);
     } catch (error) {
       next(error);
     }
   }
 
-  async addBookToLibrary(req, res, next) {
+  async addBookToLibrary(req: Request, res: Response, next: NextFunction) {
     try {
       const { bookId, libraryId } = req.params;
 
@@ -57,7 +95,7 @@ class LibraryController {
     }
   }
 
-  async removeBookFromLibrary(req, res, next) {
+  async removeBookFromLibrary(req: Request, res: Response, next: NextFunction) {
     try {
       const { bookId, libraryId } = req.params;
       const response = await libraryService.removeBookFromLibrary(
@@ -70,7 +108,7 @@ class LibraryController {
     }
   }
 
-  async checkBookInLibrary(req, res, next) {
+  async checkBookInLibrary(req: Request, res: Response, next: NextFunction) {
     try {
       const { bookId, libraryId } = req.params;
       const isBookInLibrary = await libraryService.checkBookInLibrary(
@@ -84,10 +122,20 @@ class LibraryController {
     }
   }
 
-  async updateListVisibility(req, res, next) {
+  async updateListVisibility(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
-      const { userId, libraryId } = req.params;
+      const { libraryId } = req.params;
       const { visibility } = req.body;
+
+      const userId = req.user?.id;
+
+      if (!userId) {
+        throw ApiError.Unauthorized("User ID is missing in token");
+      }
 
       const updatedList = await libraryService.updateListVisibility(
         userId,

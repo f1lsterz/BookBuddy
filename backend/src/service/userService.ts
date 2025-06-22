@@ -1,92 +1,13 @@
 import User from "../models/user.js";
-import UserProfile from "../models/userProfile.js";
 import Library from "../models/library.js";
 import BookClub from "../models/bookClub.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import ApiError from "../exceptions/api-error.js";
 import dotenv from "dotenv";
 import ClubMembers from "../models/clubMembers.js";
 import FriendRequest from "../models/friendRequest.js";
+import { ApiError } from "../utils/apiError.js";
 dotenv.config();
 
-const generateJwt = (id, email, role) => {
-  return jwt.sign({ id, email, role }, process.env.JWT_ACCESS_SECRET, {
-    expiresIn: "24h",
-  });
-};
-
 class UserService {
-  async registration(email, password, role, name) {
-    if (!email || !password || !name || !role) {
-      throw ApiError.BadRequest("All fields are required");
-    }
-
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      throw ApiError.BadRequest(`User with email ${email} already exists`);
-    }
-    const hashPassword = await bcrypt.hash(password, 5);
-    const user = await User.create({
-      email,
-      name,
-      password: hashPassword,
-      role,
-    });
-
-    await UserProfile.create({
-      name,
-      userId: user.id,
-      favoriteGenres: [],
-      profileImage: null,
-      bio: null,
-    });
-
-    const defaultLibraries = [
-      "Favourite",
-      "Reading",
-      "Already read",
-      "Wanna read",
-      "Dropped",
-    ];
-    const libraries = defaultLibraries.map((status) => ({
-      status,
-      userId: user.id,
-    }));
-    await Library.bulkCreate(libraries);
-
-    const token = generateJwt(user.id, user.email, user.role);
-    return { token };
-  }
-
-  async login(email, password) {
-    if (!email || !password) {
-      throw ApiError.BadRequest("Email and password are required");
-    }
-
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      throw ApiError.BadRequest("User with this email was not found");
-    }
-    const isPassEquals = await bcrypt.compare(password, user.password);
-    if (!isPassEquals) {
-      throw ApiError.BadRequest("Incorrect password");
-    }
-    const token = generateJwt(user.id, user.email, user.role);
-    return { token };
-  }
-
-  async getUserProfile(userId) {
-    const userProfile = await UserProfile.findOne({
-      where: { userId },
-      include: { model: User, as: "user" },
-    });
-    if (!userProfile) {
-      throw ApiError.NotFound(`User profile with id ${userId} not found`);
-    }
-    return userProfile;
-  }
-
   async getUserClub(userId) {
     try {
       const clubMembership = await ClubMembers.findOne({
@@ -109,28 +30,6 @@ class UserService {
       console.error("Error fetching user club:", error);
       throw error;
     }
-  }
-
-  async updateUserProfile(userId, name, bio, favoriteGenres, imageFile) {
-    const userProfile = await UserProfile.findOne({
-      where: { userId },
-      include: { model: User, as: "user" },
-    });
-    if (!userProfile) {
-      throw ApiError.NotFound(`User profile with id ${userId} not found`);
-    }
-
-    let imageUrl = null;
-    if (imageFile) {
-      imageUrl = `/uploads/${imageFile.filename}`;
-    }
-
-    userProfile.name = name || userProfile.name;
-    userProfile.bio = bio || userProfile.bio;
-    userProfile.favoriteGenres = favoriteGenres || userProfile.favoriteGenres;
-    userProfile.profileImage = imageUrl || userProfile.profileImage;
-    await userProfile.save();
-    return userProfile;
   }
 
   async removeFriend(userId1, userId2) {

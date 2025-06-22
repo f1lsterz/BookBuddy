@@ -1,79 +1,53 @@
-import userService from "../service/user_service.js";
+import type { Request, Response, NextFunction } from "express";
+import userService from "../service/userService.js";
+import { ApiError } from "../utils/apiError.js";
 
 class UserController {
-  async registration(req, res, next) {
-    try {
-      const { email, password, role, name } = req.body;
-      const result = await userService.registration(
-        email,
-        password,
-        role,
-        name
-      );
-
-      return res.status(201).json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async login(req, res, next) {
-    try {
-      const { email, password } = req.body;
-      const result = await userService.login(email, password);
-      return res.status(200).json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getUserProfile(req, res, next) {
-    try {
-      const userId = req.params.id;
-      const userProfile = await userService.getUserProfile(userId);
-      return res.status(200).json(userProfile);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getUserClub(req, res, next) {
-    try {
-      const userId = req.params.id;
-      const userClub = await userService.getUserClub(userId);
-      return res.status(200).json(userClub);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async updateUserProfile(req, res, next) {
+  async getUser(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const { name, bio, favoriteGenres } = req.body;
+      const user = await userService.getUser(id);
+      return res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-      let genresArray = [];
-      if (favoriteGenres) {
-        genresArray = JSON.parse(favoriteGenres);
-      }
+  async getUsers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users = await userService.getAllUsers();
+      return res.status(200).json(users);
+    } catch (error) {
+      next(error);
+    }
+  }
 
-      const profileImage = req.file;
-      const updatedUser = await userService.updateUserProfile(
-        id,
-        name,
-        bio,
-        genresArray,
-        profileImage
-      );
-
+  async updateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const updatedUser = await userService.updateUser(id, req.body);
       return res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
     }
   }
 
-  async sendFriendRequest(req, res, next) {
+  async getUserClub(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const club = await userService.getUserClub(id);
+      return res.status(200).json(club);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async sendFriendRequest(req: Request, res: Response, next: NextFunction) {
     try {
       const { senderId, receiverId } = req.body;
+      if (!senderId || !receiverId) {
+        throw ApiError.BadRequest("Both senderId and receiverId are required");
+      }
       const result = await userService.sendFriendRequest(senderId, receiverId);
       return res.status(200).json(result);
     } catch (error) {
@@ -81,7 +55,7 @@ class UserController {
     }
   }
 
-  async acceptFriendRequest(req, res, next) {
+  async acceptFriendRequest(req: Request, res: Response, next: NextFunction) {
     try {
       const { requestId } = req.params;
       const result = await userService.acceptFriendRequest(requestId);
@@ -91,7 +65,7 @@ class UserController {
     }
   }
 
-  async declineFriendRequest(req, res, next) {
+  async declineFriendRequest(req: Request, res: Response, next: NextFunction) {
     try {
       const { requestId } = req.params;
       const result = await userService.declineFriendRequest(requestId);
@@ -101,9 +75,12 @@ class UserController {
     }
   }
 
-  async removeFriend(req, res, next) {
+  async removeFriend(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId1, userId2 } = req.body;
+      if (!userId1 || !userId2) {
+        throw ApiError.BadRequest("Both userId1 and userId2 are required");
+      }
       const result = await userService.removeFriend(userId1, userId2);
       return res.status(200).json(result);
     } catch (error) {
@@ -111,7 +88,7 @@ class UserController {
     }
   }
 
-  async getFriends(req, res, next) {
+  async getFriends(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req.params;
       const friends = await userService.getFriends(userId);
@@ -121,14 +98,15 @@ class UserController {
     }
   }
 
-  async getPendingFriendRequests(req, res, next) {
+  async getPendingFriendRequests(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const { receiverId } = req.params;
-
-      const pendingRequests = await userService.getPendingFriendRequests(
-        receiverId
-      );
-      return res.status(200).json(pendingRequests || []);
+      const requests = await userService.getPendingFriendRequests(receiverId);
+      return res.status(200).json(requests);
     } catch (error) {
       next(error);
     }
