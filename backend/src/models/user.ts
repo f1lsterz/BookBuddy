@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import FriendRequest from "./friendRequest.js";
-import { ROLES } from "../utils/roles.js";
+import { ROLES } from "../utils/enums/roles.js";
 
 const User = sequelize.define(
   "User",

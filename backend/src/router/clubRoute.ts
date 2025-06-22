@@ -1,5 +1,5 @@
 import { Router } from "express";
-import ClubController from "../controllers/club_controller.js";
+import ClubController from "../controllers/clubController.js";
 import checkClubRole from "../middlewares/checkClubRole.js";
 import upload from "../config/multerConfig.js";
 

@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import User from "./user.js";
 import BookClub from "./bookClub.js";
-import { CLUB_MEMBER_ROLE } from "../utils/clubMember.js";
+import { CLUB_MEMBER_ROLE } from "../utils/enums/clubMember.js";
 
 const ClubMembers = sequelize.define(
   "ClubMembers",

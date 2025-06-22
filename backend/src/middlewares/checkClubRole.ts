@@ -1,8 +1,14 @@
 import ClubMembers from "../models/clubMembers.js";
-import ApiError from "../exceptions/api-error.js";
+import type { NextFunction, Response, Request } from "express";
+import { CLUB_MEMBER_ROLE } from "../utils/enums/clubMember.js";
+import { ApiError } from "../utils/apiError";
 
-const checkClubRole = (requiredRoles) => {
-  return async (req, res, next) => {
+const checkClubRole = (allowedRoles: CLUB_MEMBER_ROLE[]) => {
+  return async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const { clubId, userId } = req.params;
 
@@ -11,14 +17,14 @@ const checkClubRole = (requiredRoles) => {
       });
 
       if (!membership) {
-        throw ApiError.Forbidden("You are not member of this club.");
+        throw ApiError.Forbidden("You are not a member of this club.");
       }
 
-      if (!requiredRoles.includes(membership.role)) {
+      if (!allowedRoles.includes(membership.role)) {
         throw ApiError.Forbidden(
-          `Required roles: "${requiredRoles.join(
+          `Access denied. Required roles: ${allowedRoles.join(
             ", "
-          )}" for accessing this operation.`
+          )}. Your role: ${membership.role}`
         );
       }
 

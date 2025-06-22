@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import User from "./user.js";
 import Comment from "./comment.js";
-import { REACTION_TYPE } from "../utils/reactionType.js";
+import { REACTION_TYPE } from "../utils/enums/reactionType.js";
 
 const CommentReaction = sequelize.define(
   "CommentReaction",

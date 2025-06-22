@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import User from "./user.js";
-import { LIBRARY_STATUS } from "../utils/libraryStatus.js";
-import { LIBRARY_VISIBILITY } from "../utils/libraryVisibility.js";
+import { LIBRARY_STATUS } from "../utils/enums/libraryStatus.js";
+import { LIBRARY_VISIBILITY } from "../utils/enums/libraryVisibility.js";
 
 const Library = sequelize.define(
   "Library",

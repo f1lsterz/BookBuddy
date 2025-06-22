@@ -3,10 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-import sequelize from "./config/db.js";
 import router from "./router/routers.js";
 import errorMiddleware from "./middlewares/errorMiddleware.js";
-import bookService from "./service/bookService.js";
 
 dotenv.config();
 
@@ -24,24 +22,6 @@ app.use(errorMiddleware);
 
 const start = async () => {
   try {
-    await sequelize.authenticate();
-    console.log("Database connection established successfully.");
-
-    await sequelize.sync({ force: false });
-    console.log("All models were synchronized successfully.");
-
-    const existingBooks = await bookService.countBooks();
-    if (existingBooks === 0) {
-      console.log(
-        "No books found in the database. Fetching and storing books..."
-      );
-      await bookService.fetchAndStoreBooks();
-    } else {
-      console.log(
-        `Books already exist in the database (${existingBooks} records). Skipping fetch.`
-      );
-    }
-
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);
     });

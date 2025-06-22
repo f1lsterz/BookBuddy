@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
-import { FRIEND_REQUEST_STATUS } from "../utils/friendRequestStatus.js";
+import { FRIEND_REQUEST_STATUS } from "../utils/enums/friendRequestStatus.js";
 
 const FriendRequest = sequelize.define(
   "FriendRequest",
