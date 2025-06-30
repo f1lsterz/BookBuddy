@@ -1,123 +1,171 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/db.js";
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsToMany,
+  Column,
+  CreatedAt,
+  DataType,
+  Default,
+  HasMany,
+  Index,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+} from "sequelize-typescript";
+import Library from "./library";
+import BookRating from "./bookRating";
+import Comment from "./comment";
 
-const Book = sequelize.define(
-  "Book",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    title: {
-      type: DataTypes.STRING(200),
-      allowNull: false,
-      validate: {
-        notEmpty: { msg: "Title cannot be empty" },
-        len: {
-          args: [1, 200],
-          msg: "Title must be between 1 and 200 characters",
-        },
+@Table({
+  tableName: "books",
+  timestamps: true,
+  underscored: true,
+})
+class Book extends Model<Book> {
+  @PrimaryKey
+  @AutoIncrement
+  @Column(DataType.INTEGER)
+  id!: number;
+
+  @AllowNull(false)
+  @Index
+  @Column({
+    type: DataType.STRING(200),
+    validate: {
+      notEmpty: {
+        msg: "Title cannot be empty",
+      },
+      len: {
+        args: [1, 200],
+        msg: "Title must be between 1 and 200 characters",
       },
     },
-    author: {
-      type: DataTypes.STRING(150),
-      allowNull: false,
-      validate: {
-        notEmpty: { msg: "Author cannot be empty" },
-        len: {
-          args: [1, 150],
-          msg: "Author name must be between 1 and 150 characters",
-        },
+  })
+  title!: string;
+
+  @AllowNull(false)
+  @Index
+  @Column({
+    type: DataType.STRING(150),
+    validate: {
+      notEmpty: {
+        msg: "Author cannot be empty",
+      },
+      len: {
+        args: [1, 150],
+        msg: "Author name must be between 1 and 150 characters",
       },
     },
-    genres: {
-      type: DataTypes.JSON,
-      allowNull: true,
-      validate: {
-        isArrayOfStrings(value: any) {
-          if (value && !Array.isArray(value)) {
-            throw new Error("Genres must be an array");
-          }
-          if (value && value.some((g) => typeof g !== "string")) {
-            throw new Error("All genres must be strings");
-          }
-        },
+  })
+  author!: string;
+
+  @AllowNull(true)
+  @Column({
+    type: DataType.JSON,
+  })
+  genres!: string[] | null;
+
+  @AllowNull(true)
+  @Column({
+    type: DataType.TEXT,
+    validate: {
+      len: {
+        args: [0, 5000],
+        msg: "Description must be at most 5000 characters",
       },
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      validate: {
-        len: {
-          args: [0, 5000],
-          msg: "Description must be at most 5000 characters",
-        },
+  })
+  description!: string | null;
+
+  @AllowNull(true)
+  @Column(DataType.STRING)
+  coverImage!: string | null;
+
+  @AllowNull(true)
+  @Column({
+    type: DataType.DATEONLY,
+    validate: {
+      isDate: {
+        args: true,
+        msg: "Must be a valid date (YYYY-MM-DD)",
+      },
+      isPastDate(value: string) {
+        if (value && new Date(value) > new Date()) {
+          throw new Error("Publication date cannot be in the future");
+        }
       },
     },
-    coverImage: { type: DataTypes.STRING, allowNull: true },
-    publicationDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: true,
-      validate: {
-        isDate: {
-          args: true,
-          msg: "Must be a valid date (YYYY-MM-DD)",
-        },
-        isPastDate(value: string) {
-          if (value && new Date(value) > new Date()) {
-            throw new Error("Publication date cannot be in the future");
-          }
-        },
+  })
+  publicationDate!: string | null;
+
+  @AllowNull(true)
+  @Column({
+    type: DataType.INTEGER,
+    validate: {
+      isInt: {
+        msg: "Pages must be an integer",
+      },
+      min: {
+        args: [1],
+        msg: "Pages must be at least 1",
       },
     },
-    pages: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validate: {
-        min: {
-          args: [1],
-          msg: "Pages must be at least 1",
-        },
-        isInt: {
-          msg: "Pages must be an integer",
-        },
+  })
+  pages!: number | null;
+
+  @Default(0)
+  @Column({
+    type: DataType.FLOAT,
+    validate: {
+      min: {
+        args: [0],
+        msg: "Rating cannot be less than 0",
+      },
+      max: {
+        args: [5],
+        msg: "Rating cannot exceed 5",
       },
     },
-    averageRating: {
-      type: DataTypes.FLOAT,
-      defaultValue: 0,
-      validate: {
-        min: {
-          args: [0],
-          msg: "Rating cannot be less than 0",
-        },
-        max: {
-          args: [5],
-          msg: "Rating cannot exceed 5",
-        },
+  })
+  averageRating!: number;
+
+  @Default(0)
+  @Column({
+    type: DataType.INTEGER,
+    validate: {
+      isInt: {
+        msg: "Comment count must be an integer",
+      },
+      min: {
+        args: [0],
+        msg: "Comment count cannot be negative",
       },
     },
-    commentCount: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      validate: {
-        min: {
-          args: [0],
-          msg: "Comment count cannot be negative",
-        },
-        isInt: {
-          msg: "Comment count must be an integer",
-        },
-      },
-    },
-  },
-  {
-    tableName: "books",
-    timestamps: true,
-    underscored: true,
-    indexes: [
-      {
-        fields: ["title", "author"],
-      },
-    ],
-  }
-);
+  })
+  commentCount!: number;
+
+  @CreatedAt
+  @Column(DataType.DATE)
+  createdAt!: Date;
+
+  @UpdatedAt
+  @Column(DataType.DATE)
+  updatedAt!: Date;
+
+  @HasMany(() => Comment)
+  comments!: Comment[];
+
+  @HasMany(() => BookRating)
+  ratings!: BookRating[];
+
+  @BelongsToMany(() => Library, {
+    through: "LibraryBooks",
+    foreignKey: "bookId",
+    otherKey: "libraryId",
+    as: "libraries",
+  })
+  libraries!: Library[];
+}
 
 export default Book;

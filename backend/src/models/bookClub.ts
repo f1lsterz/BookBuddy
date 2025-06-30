@@ -1,55 +1,94 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/db.js";
 import { MAX_CLUB_MEMBERS } from "../utils/constants.js";
+import {
+  AllowNull,
+  AutoIncrement,
+  Column,
+  CreatedAt,
+  DataType,
+  Default,
+  HasMany,
+  Index,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique,
+  UpdatedAt,
+} from "sequelize-typescript";
+import ChatMessage from "./chatMessage.js";
+import ClubMembers from "./clubMembers.js";
 
-const BookClub = sequelize.define(
-  "bookclubs",
-  {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    name: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
+@Table({
+  tableName: "book_clubs",
+  timestamps: true,
+  underscored: true,
+  indexes: [
+    {
       unique: true,
-      validate: {
-        notEmpty: true,
-        len: [2, 100],
-      },
+      fields: ["name"],
     },
-    description: {
-      type: DataTypes.STRING(1000),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [10, 1000],
-      },
+  ],
+})
+class BookClub extends Model<BookClub> {
+  @PrimaryKey
+  @AutoIncrement
+  @Column(DataType.INTEGER)
+  id!: number;
+
+  @AllowNull(false)
+  @Unique
+  @Index({ name: "unique_name", unique: true })
+  @Column({
+    type: DataType.STRING(100),
+    validate: {
+      notEmpty: true,
+      len: [2, 100],
     },
-    memberCount: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0,
-      allowNull: false,
-      validate: {
-        min: 0,
-        isInt: true,
-        isBelowMax(value: number) {
-          if (value > MAX_CLUB_MEMBERS) {
-            throw new Error(`memberCount cannot exceed ${MAX_CLUB_MEMBERS}`);
-          }
-        },
-      },
+  })
+  name!: string;
+
+  @AllowNull(false)
+  @Column({
+    type: DataType.STRING(1000),
+    validate: {
+      notEmpty: true,
+      len: [10, 1000],
     },
-    image: { type: DataTypes.STRING, allowNull: true },
-  },
-  {
-    tableName: "book_clubs",
-    timestamps: true,
-    underscored: true,
-    indexes: [
-      {
-        unique: true,
-        fields: ["name"],
-      },
-    ],
-  }
-);
+  })
+  description!: string;
+
+  @AllowNull(false)
+  @Default(0)
+  @Column({
+    type: DataType.INTEGER,
+    validate: {
+      isInt: true,
+      min: 0,
+      max: MAX_CLUB_MEMBERS,
+    },
+  })
+  memberCount!: number;
+
+  @AllowNull(true)
+  @Column(DataType.STRING)
+  image!: string | null;
+
+  @CreatedAt
+  @Column(DataType.DATE)
+  createdAt!: Date;
+
+  @UpdatedAt
+  @Column(DataType.DATE)
+  updatedAt!: Date;
+
+  @HasMany(() => ChatMessage, {
+    onDelete: "CASCADE",
+  })
+  chatMessages!: ChatMessage[];
+
+  @HasMany(() => ClubMembers, {
+    onDelete: "CASCADE",
+  })
+  clubMembers!: ClubMembers[];
+}
 
 export default BookClub;

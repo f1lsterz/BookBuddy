@@ -1,40 +1,79 @@
 import User from "../models/user.js";
-import Library from "../models/library.js";
 import BookClub from "../models/bookClub.js";
 import dotenv from "dotenv";
 import ClubMembers from "../models/clubMembers.js";
 import FriendRequest from "../models/friendRequest.js";
 import { ApiError } from "../utils/apiError.js";
+import { UserAttributes } from "../utils/types/types.js";
 dotenv.config();
 
 class UserService {
-  async getUserClub(userId) {
-    try {
-      const clubMembership = await ClubMembers.findOne({
-        where: { userId },
-        include: {
-          model: BookClub,
-          as: "club",
-        },
-      });
+  async getUser(id: number): Promise<Omit<UserAttributes, "password">> {
+    const user = await User.findByPk(id, {
+      attributes: {
+        exclude: ["password"],
+      },
+    });
 
-      if (!clubMembership) {
-        return null;
-      }
-
-      return {
-        club: clubMembership.club,
-        role: clubMembership.role,
-      };
-    } catch (error) {
-      console.error("Error fetching user club:", error);
-      throw error;
+    if (!user) {
+      throw ApiError.NotFound("User not found");
     }
+
+    return user;
   }
 
-  async removeFriend(userId1, userId2) {
-    const user1 = await User.findByPk(userId1);
-    const user2 = await User.findByPk(userId2);
+  async getAllUsers(): Promise<Omit<UserAttributes, "password">[]> {
+    return await User.findAll({
+      attributes: {
+        exclude: ["password"],
+      },
+    });
+  }
+
+  async updateUser(
+    id: number,
+    userData: Partial<UserAttributes>
+  ): Promise<User> {
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      throw ApiError.NotFound("User not found");
+    }
+
+    Object.assign(user, userData);
+    await user.save();
+    return user;
+  }
+
+  async getUserClub(
+    userId: number
+  ): Promise<{ club: BookClub; role: string } | null> {
+    const clubMembership = await ClubMembers.findOne({
+      where: { userId },
+      include: {
+        model: BookClub,
+        as: "club",
+      },
+    });
+
+    if (!clubMembership) {
+      return null;
+    }
+
+    return {
+      club: clubMembership.club,
+      role: clubMembership.role,
+    };
+  }
+
+  async removeFriend(
+    userId1: number,
+    userId2: number
+  ): Promise<{ message: string }> {
+    const [user1, user2] = await Promise.all([
+      User.findByPk(userId1),
+      User.findByPk(userId2),
+    ]);
 
     if (!user1 || !user2) {
       throw ApiError.BadRequest("One or both users not found");
@@ -52,7 +91,7 @@ class UserService {
     }
   }
 
-  async getFriends(userId) {
+  async getFriends(userId: number): Promise<User[]> {
     const user = await User.findByPk(userId, {
       include: [
         {
@@ -68,23 +107,17 @@ class UserService {
       throw ApiError.BadRequest("User not found");
     }
 
-    const friendIds = user.friends.map((friend) => friend.id);
-
-    const friendProfiles = await UserProfile.findAll({
-      where: { userId: friendIds },
-      attributes: ["name", "profileImage", "userId"],
-    });
-
-    return friendProfiles.map((profile) => ({
-      userId: profile.userId,
-      name: profile.name,
-      profileImage: profile.profileImage,
-    }));
+    return user.friends;
   }
 
-  async sendFriendRequest(senderId, receiverId) {
-    const sender = await User.findByPk(senderId);
-    const receiver = await User.findByPk(receiverId);
+  async sendFriendRequest(
+    senderId: number,
+    receiverId: number
+  ): Promise<FriendRequest> {
+    const [sender, receiver] = await Promise.all([
+      User.findByPk(senderId),
+      User.findByPk(receiverId),
+    ]);
 
     if (!sender || !receiver) {
       throw ApiError.BadRequest("One or both users not found");
@@ -113,15 +146,17 @@ class UserService {
     return newRequest;
   }
 
-  async acceptFriendRequest(requestId) {
+  async acceptFriendRequest(requestId: number): Promise<{ message: string }> {
     const request = await FriendRequest.findByPk(requestId);
 
     if (!request) {
       throw ApiError.NotFound("Friend request not found");
     }
 
-    const sender = await User.findByPk(request.senderId);
-    const receiver = await User.findByPk(request.receiverId);
+    const [sender, receiver] = await Promise.all([
+      User.findByPk(request.senderId),
+      User.findByPk(request.receiverId),
+    ]);
 
     if (!sender || !receiver) {
       throw ApiError.BadRequest("One or both users not found");
